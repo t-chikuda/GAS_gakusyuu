@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+  <html>
+    <body>
+      <?!= HtmlService.createHtmlOutputFromFile('style').getContent(); ?>    
+      <h1>ユーザー登録画面</h1>
+     
+      <div class="kakomi1">  
+        <br>
+        <div>
+          ID:<input type="text" id="id"></p>
+          PASS：<input type="text" id="pw"></p>
+          氏名：<input type="text" id="name"></p> 
+          <button class="register" id="register" onclick="register()">登録</button>
+          <br>
+          <button class="back2" id="back2" onclick="back()">戻る</button>
+        </div> 
+      </div>  
+      <script>
+        // 新規登録処理
+        function register() {
+          var id = document.getElementById("id").value;
+          var pw = document.getElementById("pw").value;
+          var name = document.getElementById("name").value;
+          google.script.run
+            .withSuccessHandler(function(results) {
+            google.script.run
+              .withSuccessHandler(function(results) {
+                var url = results;
+                url += '?page=taskList';
+                window.top.location.href = url;
+            })
+            .withFailureHandler(function(error) {
+            })
+            .getScriptUrl();
+          })
+          .withFailureHandler(function(error) {
+          })
+          .register(id, pw, name);
+        }
+        
+        // 戻る処理
+        function back() {
+          google.script.run
+            .withSuccessHandler(function(results) {
+              var url = results;
+              url += '?page=index';
+              window.top.location.href = url;
+          })
+          .withFailureHandler(function(error) {
+          })
+          .getScriptUrl();
+        }
+    </script>
+ </body>
+</html>

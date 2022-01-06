@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+  <html>
+    <body>
+      <?!= HtmlService.createHtmlOutputFromFile('style').getContent(); ?>
+      <? var name = getName(); ?>
+      <h1>タスク一覧画面</h1>
+      <div class="kakomi2"> 
+        <font size="1"><h1><?= name ?>さん</h1></font>
+      </div>
+
+      <div class="kakomi1">
+        <div class="content">内容:<input type="text" id="content"></div>
+        <div class="date">期限<input type="date" id="date" placeholder="yyyy/mm/dd"></div>
+        <button class="add" id="add" onclick="add()">追加</button>
+        <div class="taskList" id="taskList"></div>
+        <input class="back" type="button" value="戻る" onclick="back()"/>
+      </div>
+
+      <script>
+        // 初期表示　タスクリスト取得
+        window.onload = function(){
+          google.script.run
+          .withSuccessHandler(function(results) {
+            var data = results;
+            var html = '';
+            html += '<table class="taskList" border="1">'
+            html += '  <tr style="background-color:#d9d9d9ff;">'
+            html += '    <th background-color: #bde9ba >No.</th>'
+            html += '    <th>内容</th>'
+            html += '    <th>期限</th>'
+            html += '    <th>　　　　　　</th>'
+            html += '  </tr>'
+            for (var i = 1; i < results.length; i++ ){
+              var result = results[i];
+              if (Number(result[3]) === 1) {
+                continue;
+              }
+              html += '  <tr>'
+              html += '    <td>'+ result[0] + '</td>'
+              html += '    <td>'+ result[1] + '</td>'
+              html += '    <td>'+ result[2] + '</td>'
+              html += '    <td><button class="edit" onclick="edit(' + result[0] + ')">編集</button>'
+              html += '    <button class="completion" onclick="completion(' + result[0] + ')">完了</button></td>'
+              html += '  </tr>'
+            }      
+            html += '</table>'
+            var taskList = document.getElementById('taskList');
+            taskList.innerHTML = html;
+          })
+          .withFailureHandler(function(error) {
+          })
+          .getTaskList();
+        }
+
+        // タスクリスト追加処理
+        function add() {
+          var content = document.getElementById("content").value;
+          var date = document.getElementById("date").value;
+          google.script.run
+          .withSuccessHandler(function(results) {
+             google.script.run
+             .withSuccessHandler(function(results) {
+               var url = results;
+               url += '?page=taskList';
+               window.top.location.href = url;
+            })
+            .withFailureHandler(function(error) {
+            })
+            .getScriptUrl();
+          })
+          .withFailureHandler(function(error) {
+          })
+          .taskListAdd(content,date);
+        }
+
+
+        // タスクリスト編集処理
+        function edit(num) {
+          google.script.run
+          .withSuccessHandler(function(results) {
+            google.script.run
+            .withSuccessHandler(function(results) {
+              var url = results;
+              url += '?page=taskEdit';
+              window.top.location.href = url;
+            })
+            .withFailureHandler(function(error) {
+            })
+            .getScriptUrl();
+          })
+          .withFailureHandler(function(error) {
+          })
+          .taskListEdit(num);
+        }
+
+        // タスクリスト完了処理
+        function completion(num) {
+          google.script.run
+          .withSuccessHandler(function(results) {
+            google.script.run
+            .withSuccessHandler(function(results) {
+              var url = results;
+              url += '?page=taskList';
+              window.top.location.href = url;
+            })
+            .withFailureHandler(function(error) {
+            })
+            .getScriptUrl();
+          })
+          .withFailureHandler(function(error) {
+          })
+          .taskListCompletion(num);
+        }
+
+        // 戻る処理
+        function back() {
+            google.script.run
+            .withSuccessHandler(function(results) {
+              var url = results;
+              url += '?page=index';
+              window.top.location.href = url;
+          })
+          .withFailureHandler(function(error) {
+          })
+          .getScriptUrl();
+        }
+      </script>
+    </body>
+  </html>

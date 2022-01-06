@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+  <html>
+    <body>
+      <?!= HtmlService.createHtmlOutputFromFile('style').getContent(); ?>
+      <? var name = getName(); ?>
+      <h1>タスク編集画面</h1>
+      <div class="kakomi2"> 
+        <font size="1"><h1><?= name ?>さん</h1></font>
+      </div> 
+      <div class="kakomi1">
+        <input type="button" class="save" value="保存" onclick="save()">
+        <div id="taskList"></div>
+        <input type="button" class="back" value="戻る" onclick="back()">
+      </div> 
+      <script>
+        // 初期表示
+        window.onload = function(){
+          google.script.run
+          .withSuccessHandler(function(results) {
+            var data = results;
+            var result = '';
+            for (var i = 1; i < results.length; i++ ){
+              if(Number(results[i][4]) === 1){
+                result = results[i];
+                break;
+              }
+            }
+            var date = convertDateToString(new Date(result[2]), 'yyyy-MM-dd')
+
+            var date = new Date(result[2]);
+            date.setDate(date.getDate());
+            var yyyy = date.getFullYear();
+            var mm = ("0"+(date.getMonth()+1)).slice(-2);
+            var dd = ("0"+date.getDate()).slice(-2);
+            var convertDate = yyyy+'-'+mm+'-'+dd;
+
+            var html = '';
+            html += '<table class="taskList2" border="1">'
+            html += '  <tr>'
+            html += '    <th style="background-color:#d9d9d9ff;">No.</th>'
+            html += '    <td>' + result[0] + '</td>'
+            html += '  </tr>'
+            html += '  <tr>'
+            html += '    <th style="background-color:#d9d9d9ff;">内容</th>'
+            html += '    <td><input type="text" id="content" value="' + result[1] + '"></td>'
+            html += '  </tr>'
+            html += '  <tr>'
+            html += '    <th style="background-color:#d9d9d9ff;">期限</th>'
+            html += '    <td><input type="date" id="date" value="' + convertDate + '"></td>'
+            html += '  </tr>'
+            html += '</table>'
+            var taskList = document.getElementById('taskList');
+            taskList.innerHTML = html;
+          })
+          .withFailureHandler(function(error) {
+          })
+          .getTaskList();
+        }
+
+        // 保存処理
+        function save() {
+          var content = document.getElementById("content").value;
+          var date = document.getElementById("date").value;
+          google.script.run
+          .withSuccessHandler(function(results) {
+             google.script.run
+             .withSuccessHandler(function(results) {
+               var url = results;
+               url += '?page=taskList';
+               window.top.location.href = url;
+            })
+            .withFailureHandler(function(error) {
+            })
+            .getScriptUrl();
+          })
+          .withFailureHandler(function(error) {
+          })
+          .taskListSave(content, date);
+        }
+
+        // 戻る処理
+        function back() {
+          google.script.run
+            .withSuccessHandler(function(results) {
+              var url = results;
+              url += '?page=taskList';
+              window.top.location.href = url;
+          })
+          .withFailureHandler(function(error) {
+          })
+          .getScriptUrl();
+        }
+
+        // 日付のフォーマットを変換
+        function convertDateToString(targetDate, format) {
+          var year = targetDate.getFullYear();
+          var month =  ('0' + (targetDate.getMonth() + 1)).slice(-2);
+          var date = ('0' + targetDate.getDate()).slice(-2);
+          var hours = targetDate.getHours();
+          var minutes = targetDate.getMinutes();
+          var seconds = targetDate.getSeconds();
+          // フォーマットの形式で文字列変換を行う
+          var result = format ? format : 'yyyy-MM-dd hh:mm:ss';
+          result = result.replace(/yyyy/g, year);
+          result = result.replace(/MM/g, month);
+          result = result.replace(/dd/g, date);
+          result = result.replace(/hh/g, hours);
+          result = result.replace(/mm/g, minutes);
+          result = result.replace(/ss/g, seconds);
+          return result;
+        };
+
+
+
+      </script>
+    </body>
+ </html>
