@@ -1,52 +1,52 @@
 <!DOCTYPE html>
-  <html>
-    <body>
-      <?!= HtmlService.createHtmlOutputFromFile('alert').getContent(); ?>
-      <?!= HtmlService.createHtmlOutputFromFile('style').getContent(); ?>
-      <h1>ログイン画面</h1>
-      <div class="kakomi1">
-        <div class="id">ID:<input type="text" id="id"></p></div>
-        <div class="pw">PASS:<input type="text" id="pw"></p></div>
-        <button class="login" id="login" onclick="login()">ログイン</button>
-        <button class="signUp" id="signUp" onclick="signUp()">新規登録<br>(エントリー)</button>
-      </div>
+<html>
+  <body>
+    <?!= HtmlService.createHtmlOutputFromFile('alert').getContent(); ?>
+    <?!= HtmlService.createHtmlOutputFromFile('style').getContent(); ?>
+    <h1>ログイン画面</h1>
+    <div class="kakomi1">
+      <div class="id">ID:<input type="text" id="id"></p></div>
+      <div class="pw">PASS:<input type="text" id="pw"></p></div>
+      <button class="login" id="login" onclick="login()">ログイン</button>
+      <button class="signUp" id="signUp" onclick="signUp()">新規登録<br>(エントリー)</button>
+    </div>
 
-      <script>
-        // ログイン
-        function login() {
-          var id = document.getElementById("id").value;
-          var pw = document.getElementById("pw").value;
+    <script>
+      // ログイン
+      function login() {
+        var id = document.getElementById("id").value;
+        var pw = document.getElementById("pw").value;
+        google.script.run
+          .withSuccessHandler(function(results) {
           google.script.run
             .withSuccessHandler(function(results) {
-            google.script.run
-              .withSuccessHandler(function(results) {
-                var url = results;
-                url += '?page=taskList';
-                window.top.location.href = url;
-            })
-            .withFailureHandler(function(error) {
-            })
-            .getScriptUrl();
+              var url = results;
+              url += '?page=taskList';
+              window.top.location.href = url;
           })
-            .withFailureHandler(function(error) {
-                showAlert('IDまたはPASSが異なります。');
+          .withFailureHandler(function(error) {
           })
-            .login(id, pw);
-        }
+          .getScriptUrl();
+        })
+          .withFailureHandler(function(error) {
+              showAlert('IDまたはPASSが異なります。');
+        })
+          .login(id, pw);
+      }
 
-        // 新規登録
-        function signUp() {
-          google.script.run
-            .withSuccessHandler(function(results) {
-               var url = results;
-               url += '?page=userRegistration';
-               window.top.location.href = url;
-          })
-            .withFailureHandler(function(error) {
-          })
-            .getScriptUrl();
-        }
-        
-      </script>
-    </body>
-  </html>
+      // 新規登録
+      function signUp() {
+        google.script.run
+          .withSuccessHandler(function(results) {
+              var url = results;
+              url += '?page=userRegistration';
+              window.top.location.href = url;
+        })
+          .withFailureHandler(function(error) {
+        })
+          .getScriptUrl();
+      }
+      
+    </script>
+  </body>
+</html>
