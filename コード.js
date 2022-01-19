@@ -29,7 +29,7 @@ function login(value, value2) {
       }
     } 
   }
-  throw new Error('IDまたはPASSが異なります。'); 
+  throw new Error(); 
 }
 
 // URLの取得

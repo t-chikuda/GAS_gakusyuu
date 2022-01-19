@@ -52,6 +52,7 @@
           taskList.innerHTML = html;
         })
         .withFailureHandler(function(error) {
+          showAlert('エラーが発生しました。システム管理者に問い合わせてください。');
         })
         .getTaskList();
       }
@@ -69,10 +70,12 @@
               window.top.location.href = url;
           })
           .withFailureHandler(function(error) {
+            showAlert('エラーが発生しました。システム管理者に問い合わせてください。');
           })
           .getScriptUrl();
         })
         .withFailureHandler(function(error) {
+          showAlert('エラーが発生しました。システム管理者に問い合わせてください。');
         })
         .taskListSave(content, date);
       }
@@ -86,6 +89,7 @@
             window.top.location.href = url;
         })
         .withFailureHandler(function(error) {
+          showAlert('エラーが発生しました。システム管理者に問い合わせてください。');
         })
         .getScriptUrl();
       }

@@ -29,7 +29,7 @@
           .getScriptUrl();
         })
           .withFailureHandler(function(error) {
-              showAlert('IDまたはPASSが異なります。');
+            showAlert('IDまたはPASSが異なります。');
         })
           .login(id, pw);
       }
@@ -43,6 +43,7 @@
               window.top.location.href = url;
         })
           .withFailureHandler(function(error) {
+            showAlert('エラーが発生しました。システム管理者に問い合わせてください。');
         })
           .getScriptUrl();
       }
