@@ -18,14 +18,14 @@
     <script>
       // 新規登録処理
       function register() {
-        var id = document.getElementById("id").value;
-        var pw = document.getElementById("pw").value;
-        var name = document.getElementById("name").value;
+        const id = document.getElementById("id").value;
+        const pw = document.getElementById("pw").value;
+        const name = document.getElementById("name").value;
         google.script.run
           .withSuccessHandler(function(results) {
           google.script.run
             .withSuccessHandler(function(results) {
-              var url = results;
+              let url = results;
               url += '?page=taskList';
               window.top.location.href = url;
           })
@@ -42,7 +42,7 @@
       function back() {
         google.script.run
           .withSuccessHandler(function(results) {
-            var url = results;
+            let url = results;
             url += '?page=index';
             window.top.location.href = url;
         })

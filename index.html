@@ -14,13 +14,13 @@
     <script>
       // ログイン
       function login() {
-        var id = document.getElementById("id").value;
-        var pw = document.getElementById("pw").value;
+        const id = document.getElementById("id").value;
+        const pw = document.getElementById("pw").value;
         google.script.run
           .withSuccessHandler(function(results) {
           google.script.run
             .withSuccessHandler(function(results) {
-              var url = results;
+              let url = results;
               url += '?page=taskList';
               window.top.location.href = url;
           })
@@ -38,7 +38,7 @@
       function signUp() {
         google.script.run
           .withSuccessHandler(function(results) {
-              var url = results;
+              let url = results;
               url += '?page=userRegistration';
               window.top.location.href = url;
         })

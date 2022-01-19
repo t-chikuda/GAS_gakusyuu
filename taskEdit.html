@@ -2,7 +2,7 @@
 <html>
   <body>
     <?!= HtmlService.createHtmlOutputFromFile('style').getContent(); ?>
-    <? var name = getName(); ?>
+    <? const name = getName(); ?>
     <h1>タスク編集画面</h1>
     <div class="kakomi2"> 
       <font size="1"><h1><?= name ?>さん</h1></font>
@@ -17,24 +17,23 @@
       window.onload = function(){
         google.script.run
         .withSuccessHandler(function(results) {
-          var data = results;
-          var result = '';
-          for (var i = 1; i < results.length; i++ ){
+          let data = results;
+          let result = '';
+          for (let i = 1; i < results.length; i++ ){
             if(Number(results[i][4]) === 1){
               result = results[i];
               break;
             }
           }
-          var date = convertDateToString(new Date(result[2]), 'yyyy-MM-dd')
 
-          var date = new Date(result[2]);
+          let date = new Date(result[2]);
           date.setDate(date.getDate());
-          var yyyy = date.getFullYear();
-          var mm = ("0"+(date.getMonth()+1)).slice(-2);
-          var dd = ("0"+date.getDate()).slice(-2);
-          var convertDate = yyyy+'-'+mm+'-'+dd;
+          const yyyy = date.getFullYear();
+          const mm = ("0"+(date.getMonth()+1)).slice(-2);
+          const dd = ("0"+date.getDate()).slice(-2);
+          const convertDate = yyyy+'-'+mm+'-'+dd;
 
-          var html = '';
+          let html = '';
           html += '<table class="taskList2" border="1">'
           html += '  <tr>'
           html += '    <th style="background-color:#d9d9d9ff;">No.</th>'
@@ -49,7 +48,7 @@
           html += '    <td><input type="date" id="date" value="' + convertDate + '"></td>'
           html += '  </tr>'
           html += '</table>'
-          var taskList = document.getElementById('taskList');
+          let taskList = document.getElementById('taskList');
           taskList.innerHTML = html;
         })
         .withFailureHandler(function(error) {
@@ -59,13 +58,13 @@
 
       // 保存処理
       function save() {
-        var content = document.getElementById("content").value;
-        var date = document.getElementById("date").value;
+        const content = document.getElementById("content").value;
+        const date = document.getElementById("date").value;
         google.script.run
         .withSuccessHandler(function(results) {
             google.script.run
             .withSuccessHandler(function(results) {
-              var url = results;
+              let url = results;
               url += '?page=taskList';
               window.top.location.href = url;
           })
@@ -82,7 +81,7 @@
       function back() {
         google.script.run
           .withSuccessHandler(function(results) {
-            var url = results;
+            let url = results;
             url += '?page=taskList';
             window.top.location.href = url;
         })
@@ -93,14 +92,14 @@
 
       // 日付のフォーマットを変換
       function convertDateToString(targetDate, format) {
-        var year = targetDate.getFullYear();
-        var month =  ('0' + (targetDate.getMonth() + 1)).slice(-2);
-        var date = ('0' + targetDate.getDate()).slice(-2);
-        var hours = targetDate.getHours();
-        var minutes = targetDate.getMinutes();
-        var seconds = targetDate.getSeconds();
+        const year = targetDate.getFullYear();
+        const month =  ('0' + (targetDate.getMonth() + 1)).slice(-2);
+        const date = ('0' + targetDate.getDate()).slice(-2);
+        const hours = targetDate.getHours();
+        const minutes = targetDate.getMinutes();
+        const seconds = targetDate.getSeconds();
         // フォーマットの形式で文字列変換を行う
-        var result = format ? format : 'yyyy-MM-dd hh:mm:ss';
+        let result = format ? format : 'yyyy-MM-dd hh:mm:ss';
         result = result.replace(/yyyy/g, year);
         result = result.replace(/MM/g, month);
         result = result.replace(/dd/g, date);

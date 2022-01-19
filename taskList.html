@@ -2,7 +2,7 @@
 <html>
   <body>
     <?!= HtmlService.createHtmlOutputFromFile('style').getContent(); ?>
-    <? var name = getName(); ?>
+    <? const name = getName(); ?>
     <h1>タスク一覧画面</h1>
     <div class="kakomi2"> 
       <font size="1"><h1><?= name ?>さん</h1></font>
@@ -21,8 +21,7 @@
       window.onload = function(){
         google.script.run
         .withSuccessHandler(function(results) {
-          var data = results;
-          var html = '';
+          let html = '';
           html += '<table class="taskList" border="1">'
           html += '  <tr style="background-color:#d9d9d9ff;">'
           html += '    <th background-color: #bde9ba >No.</th>'
@@ -30,8 +29,8 @@
           html += '    <th>期限</th>'
           html += '    <th>　　　　　　</th>'
           html += '  </tr>'
-          for (var i = 1; i < results.length; i++ ){
-            var result = results[i];
+          for (let i = 1; i < results.length; i++ ){
+            let result = results[i];
             if (Number(result[3]) === 1) {
               continue;
             }
@@ -44,7 +43,7 @@
             html += '  </tr>'
           }      
           html += '</table>'
-          var taskList = document.getElementById('taskList');
+          let taskList = document.getElementById('taskList');
           taskList.innerHTML = html;
         })
         .withFailureHandler(function(error) {
@@ -54,13 +53,13 @@
 
       // タスクリスト追加処理
       function add() {
-        var content = document.getElementById("content").value;
-        var date = document.getElementById("date").value;
+        const content = document.getElementById("content").value;
+        const date = document.getElementById("date").value;
         google.script.run
         .withSuccessHandler(function(results) {
             google.script.run
             .withSuccessHandler(function(results) {
-              var url = results;
+              let url = results;
               url += '?page=taskList';
               window.top.location.href = url;
           })
@@ -80,7 +79,7 @@
         .withSuccessHandler(function(results) {
           google.script.run
           .withSuccessHandler(function(results) {
-            var url = results;
+            let url = results;
             url += '?page=taskEdit';
             window.top.location.href = url;
           })
@@ -99,7 +98,7 @@
         .withSuccessHandler(function(results) {
           google.script.run
           .withSuccessHandler(function(results) {
-            var url = results;
+            let url = results;
             url += '?page=taskList';
             window.top.location.href = url;
           })
@@ -116,7 +115,7 @@
       function back() {
           google.script.run
           .withSuccessHandler(function(results) {
-            var url = results;
+            let url = results;
             url += '?page=index';
             window.top.location.href = url;
         })

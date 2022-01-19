@@ -11,9 +11,9 @@
     </div>
     <script>        
       // alert用ダイアログの処理
-      var alertClose = document.getElementById('alert-close');
-      var alertDialog = document.getElementById('alert-message');
-      var alertMessage = document.getElementById('alert-message-text');
+      const alertClose = document.getElementById('alert-close');
+      const alertDialog = document.getElementById('alert-message');
+      const alertMessage = document.getElementById('alert-message-text');
 
       /**
         * アラートを表示する関数
@@ -25,7 +25,7 @@
         alertMessage.innerText = message;
         enableOverlayForDialog();
         alertDialog.style.display = 'block';
-        var closeFnc = function() {
+        const closeFnc = function() {
           alertClose.removeEventListener('click', closeFnc);
           disableOverlayForDialog();
           alertDialog.style.display = 'none';
