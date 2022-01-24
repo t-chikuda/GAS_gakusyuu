@@ -17,35 +17,29 @@
         const id = document.getElementById("id").value;
         const pw = document.getElementById("pw").value;
         google.script.run
-          .withSuccessHandler(function(results) {
-          google.script.run
-            .withSuccessHandler(function(results) {
-              let url = results;
-              url += '?page=taskList';
-              window.top.location.href = url;
-          })
-          .withFailureHandler(function(error) {
-          })
-          .getScriptUrl();
+        .withSuccessHandler(function(results) {
+            let url = results;
+            url += '?page=taskList';
+            window.top.location.href = url;
         })
-          .withFailureHandler(function(error) {
-            showAlert('IDまたはPASSが異なります。');
+        .withFailureHandler(function(error) {
+          showAlert('IDまたはPASSが異なります。');
         })
-          .login(id, pw);
+        .login(id, pw);
       }
 
       // 新規登録
       function signUp() {
         google.script.run
-          .withSuccessHandler(function(results) {
-              let url = results;
-              url += '?page=userRegistration';
-              window.top.location.href = url;
+        .withSuccessHandler(function(results) {
+            let url = results;
+            url += '?page=userRegistration';
+            window.top.location.href = url;
         })
-          .withFailureHandler(function(error) {
-            showAlert('エラーが発生しました。システム管理者に問い合わせてください。');
+        .withFailureHandler(function(error) {
+          showAlert('エラーが発生しました。システム管理者に問い合わせてください。');
         })
-          .getScriptUrl();
+        .getScriptUrl();
       }
       
     </script>

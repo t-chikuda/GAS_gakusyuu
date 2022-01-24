@@ -22,17 +22,10 @@
         const pw = document.getElementById("pw").value;
         const name = document.getElementById("name").value;
         google.script.run
-          .withSuccessHandler(function(results) {
-          google.script.run
-            .withSuccessHandler(function(results) {
-              let url = results;
-              url += '?page=taskList';
-              window.top.location.href = url;
-          })
-          .withFailureHandler(function(error) {
-            showAlert('エラーが発生しました。システム管理者に問い合わせてください。');
-          })
-          .getScriptUrl();
+        .withSuccessHandler(function(results) {
+          let url = results;
+          url += '?page=taskList';
+          window.top.location.href = url;
         })
         .withFailureHandler(function(error) {
           showAlert('エラーが発生しました。システム管理者に問い合わせてください。');
@@ -43,10 +36,10 @@
       // 戻る処理
       function back() {
         google.script.run
-          .withSuccessHandler(function(results) {
-            let url = results;
-            url += '?page=index';
-            window.top.location.href = url;
+        .withSuccessHandler(function(results) {
+          let url = results;
+          url += '?page=index';
+          window.top.location.href = url;
         })
         .withFailureHandler(function(error) {
           showAlert('エラーが発生しました。システム管理者に問い合わせてください。');

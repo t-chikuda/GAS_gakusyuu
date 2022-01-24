@@ -25,7 +25,7 @@ function login(value, value2) {
       let pw = sh.getRange(i, 2).getValue();
       if(pw == value2){
         sh.getRange(i, 4).setValue(1);
-        return;
+        return getScriptUrl();
       }
     } 
   }
@@ -61,6 +61,7 @@ function taskListEdit(num){
       sh.getRange(i, 5).setValue(1);
     } 
   }
+  return getScriptUrl();
 }
 
 // タスクリスト完了
@@ -75,6 +76,7 @@ function taskListCompletion(num){
       sh.getRange(i, 4).setValue(1);
     } 
   }
+  return getScriptUrl();
 }
 
 // タスクリスト追加
@@ -88,7 +90,8 @@ function taskListAdd(content, date) {
   sh.getRange(addLr, 2).setValue(content);
   sh.getRange(addLr, 3).setValue(date);
   sh.getRange(addLr, 4).setValue(0);
-  sh.getRange(addLr, 5).setValue(0); 
+  sh.getRange(addLr, 5).setValue(0);
+  return getScriptUrl();
 }
 
 // タスクリスト保存
@@ -107,6 +110,7 @@ function taskListSave(content, date) {
   for(let i = 2 ; i <= lr ; i++){
     sh.getRange(i, 5).setValue(0);
   }
+  return getScriptUrl();
 }
 
 // 名前取得
@@ -139,6 +143,7 @@ function register(id, pw, name) {6
   sh.getRange(lr, 2).setValue(pw);
   sh.getRange(lr, 3).setValue(name);
   sh.getRange(lr, 4).setValue(1);
+  return getScriptUrl();
 }
 
 
