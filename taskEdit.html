@@ -63,9 +63,9 @@
         const date = document.getElementById("date").value;
         google.script.run
         .withSuccessHandler(function(results) {
-            let url = results;
-            url += '?page=taskList';
-            window.top.location.href = url;
+          let url = results;
+          url += '?page=taskList';
+          window.top.location.href = url;
         })
         .withFailureHandler(function(error) {
           showAlert('エラーが発生しました。システム管理者に問い合わせてください。');
@@ -105,9 +105,6 @@
         result = result.replace(/ss/g, seconds);
         return result;
       };
-
-
-
     </script>
   </body>
 </html>
