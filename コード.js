@@ -34,10 +34,7 @@ function login(value, value2) {
 
 // URLの取得
 function getScriptUrl() {
-  if(sc_url === ''){
-    sc_url = ScriptApp.getService().getUrl();
-  }
-  return sc_url;
+  return ScriptApp.getService().getUrl();
 }
 
 // タスクリスト取得
