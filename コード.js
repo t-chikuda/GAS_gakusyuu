@@ -128,7 +128,7 @@ function getName() {
 }
 
 // 新規登録
-function register(id, pw, name) {6
+function register(id, pw, name) {
   const ss = SpreadsheetApp.openByUrl(ss_url);
   const sh = ss.getSheets()[0];
   let lr = sh.getLastRow();
