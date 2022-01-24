@@ -21,9 +21,9 @@ function login(value, value2) {
 
   for(let i = 2 ; i <= lr ; i++){
     let id = sh.getRange(i, 1).getValue();
-    if(id == value){
+    if(id === value){
       let pw = sh.getRange(i, 2).getValue();
-      if(pw == value2){
+      if(pw === value2){
         sh.getRange(i, 4).setValue(1);
         return getScriptUrl();
       }
