@@ -14,10 +14,12 @@ function login(value, value2) {
   const ss = SpreadsheetApp.openByUrl(ss_url);
   const sh = ss.getSheets()[0];
   const lr = sh.getLastRow();
-  
-  for(let i = 2 ; i <= lr ; i++){
-    sh.getRange(i, 4).setValue(0);
-  } 
+
+  let arr = [];
+  for (let i = 2; i < lr; i++){
+    arr.push([0]);
+  }
+  sh.getRange(2, 4, arr.length, arr[0].length).setValues(arr);
 
   for(let i = 2 ; i <= lr ; i++){
     let id = sh.getRange(i, 1).getValue();
@@ -48,9 +50,13 @@ function taskListEdit(num){
   const sh = ss.getSheets()[1];
   const lr = sh.getLastRow();
 
-  for(let i = 2 ; i <= lr ; i++){
-    sh.getRange(i, 5).setValue(0);
+  let arr = [];
+  for (let i = 2; i < lr; i++){
+    arr.push([0]);
   }
+  sh.getRange(2, 5, arr.length, arr[0].length).setValues(arr);
+
+
 
   for(let i = 1 ; i <= lr ; i++){
     let value = sh.getRange(i, 1).getValue();
@@ -103,9 +109,6 @@ function taskListSave(content, date) {
       sh.getRange(i, 2).setValue(content);
       sh.getRange(i, 3).setValue(date);
     } 
-  }
-  for(let i = 2 ; i <= lr ; i++){
-    sh.getRange(i, 5).setValue(0);
   }
   return getScriptUrl();
 }
