@@ -142,13 +142,3 @@ function register(id, pw, name) {
   sh.getRange(lr, 4).setValue(1);
   return getScriptUrl();
 }
-
-
-
-
-
-
-
-
-
-
