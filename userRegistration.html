@@ -18,9 +18,9 @@
     <script>
       // 新規登録処理
       function register() {
-        const id = document.getElementById("id").value;
-        const pw = document.getElementById("pw").value;
-        const name = document.getElementById("name").value;
+        const id = document.getElementById('id').value;
+        const pw = document.getElementById('pw').value;
+        const name = document.getElementById('name').value;
         google.script.run
         .withSuccessHandler(function(results) {
           let url = results;

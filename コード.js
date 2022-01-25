@@ -1,5 +1,5 @@
-const ss_url = "https://docs.google.com/spreadsheets/d/1L63VeejbxCk8BGwx9BX5D_4EfRLwKUmlKLD9jhzJvOI/edit#gid=0";
-let sc_url = "";
+const ss_url = 'https://docs.google.com/spreadsheets/d/1L63VeejbxCk8BGwx9BX5D_4EfRLwKUmlKLD9jhzJvOI/edit#gid=0';
+let sc_url = '';
 
 function doGet(e) {
   let page = e.parameter.page;
