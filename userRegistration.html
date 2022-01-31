@@ -16,7 +16,9 @@
       </div> 
     </div>  
     <script>
-      // 新規登録処理
+      /**
+       * 新規登録処理の関数です
+       */
       function register() {
         const id = document.getElementById('id').value;
         const pw = document.getElementById('pw').value;
@@ -33,7 +35,9 @@
         .register(id, pw, name);
       }
       
-      // 戻る処理
+      /**
+       * 戻る処理の関数です
+       */
       function back() {
         google.script.run
         .withSuccessHandler(function(results) {

@@ -12,7 +12,9 @@
     </div>
 
     <script>
-      // ログイン
+      /**
+       * ログイン処理の関数です
+       */
       function login() {
         const id = document.getElementById('id').value;
         const pw = document.getElementById('pw').value;
@@ -28,7 +30,9 @@
         .login(id, pw);
       }
 
-      // 新規登録
+      /**
+       * 新規登録処理の関数です
+       */
       function signUp() {
         google.script.run
         .withSuccessHandler(function(results) {

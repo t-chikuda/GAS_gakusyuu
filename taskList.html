@@ -17,7 +17,9 @@
     </div>
 
     <script>
-      // 初期表示　タスクリスト取得
+      /**
+       * 初期表示処理の関数です
+       */
       window.onload = function(){
         google.script.run
         .withSuccessHandler(function(results) {
@@ -52,7 +54,9 @@
         .getTaskList();
       }
 
-      // タスクリスト追加処理
+      /**
+       * タスクリストの追加処理の関数です
+       */
       function add() {
         const content = document.getElementById('content').value;
         const date = document.getElementById('date').value;
@@ -69,7 +73,9 @@
       }
 
 
-      // タスクリスト編集処理
+      /**
+       * タスクリストの編集処理の関数です
+       */
       function edit(num) {
         google.script.run
         .withSuccessHandler(function(results) {
@@ -83,7 +89,9 @@
         .taskListEdit(num);
       }
 
-      // タスクリスト完了処理
+      /**
+       * タスクリストの完了処理の関数です
+       */
       function completion(num) {
         google.script.run
         .withSuccessHandler(function(results) {
@@ -96,7 +104,9 @@
         .taskListCompletion(num);
       }
 
-      // 戻る処理
+      /**
+       * 戻る処理の関数です
+       */
       function back() {
         google.script.run
         .withSuccessHandler(function(results) {
