@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="overlay-for-dialog" class="clearfix"></div>
+    <!-- alert用のダイアログ -->
+    <div id="alert-message" class="dialog" >
+      <div class="alert-content">
+        <p id="alert-message-text"></p>
+      </div>
+      <p id="alert-close" type="button">閉じる</p>
+    </div>
+    <script>        
+      // alert用ダイアログの処理
+      const alertClose = document.getElementById('alert-close');
+      const alertDialog = document.getElementById('alert-message');
+      const alertMessage = document.getElementById('alert-message-text');
+
+      /**
+        * アラートを表示する関数
+        * @param {string}   _message     表示するメッセージ
+        * @param {function} resolveParam 「閉じる」ボタンをクリックした際に実行される関数
+        */
+      function showAlert(message, resolveParam) {
+        return new Promise(function(resolve) {
+        alertMessage.innerText = message;
+        enableOverlayForDialog();
+        alertDialog.style.display = 'block';
+        const closeFnc = function() {
+          alertClose.removeEventListener('click', closeFnc);
+          disableOverlayForDialog();
+          alertDialog.style.display = 'none';
+          alertMessage.innerText = '';
+          resolve(resolveParam);
+        }
+        alertClose.addEventListener('click', closeFnc);
+        });
+      };
+
+      /**
+        * ダイアログのオーバーレイを有効化する関数
+        */
+      function enableOverlayForDialog() {
+        document.getElementById('overlay-for-dialog').style.background = 'rgba(0, 0, 0, 0.3)';
+        document.getElementById('overlay-for-dialog').style.display = 'block'; 
+      }
+
+      /**
+        * ダイアログのオーバーレイを無効化する関数
+        */
+      function disableOverlayForDialog() {
+        document.getElementById('overlay-for-dialog').style.background = 'transparent';
+        document.getElementById('overlay-for-dialog').style.display = 'none'; 
+      }
+    </script>
+  </body>
+</html>

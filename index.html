@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <?!= HtmlService.createHtmlOutputFromFile('alert').getContent(); ?>
+    <?!= HtmlService.createHtmlOutputFromFile('style').getContent(); ?>
+    <h1>ログイン画面</h1>
+    <div class="kakomi1">
+      <div class="id">ID:<input type="text" id="id"></p></div>
+      <div class="pw">PASS:<input type="text" id="pw"></p></div>
+      <button class="login" id="login" onclick="login()">ログイン</button>
+      <button class="signUp" id="signUp" onclick="signUp()">新規登録<br>(エントリー)</button>
+    </div>
+
+    <script>
+      /**
+       * ログイン処理の関数です
+       */
+      function login() {
+        const id = document.getElementById('id').value;
+        const pw = document.getElementById('pw').value;
+        google.script.run
+        .withSuccessHandler(function(results) {
+            let url = results;
+            url += '?page=taskList';
+            window.top.location.href = url;
+        })
+        .withFailureHandler(function(error) {
+          showAlert('IDまたはPASSが異なります。');
+        })
+        .login(id, pw);
+      }
+
+      /**
+       * 新規登録処理の関数です
+       */
+      function signUp() {
+        google.script.run
+        .withSuccessHandler(function(results) {
+            let url = results;
+            url += '?page=userRegistration';
+            window.top.location.href = url;
+        })
+        .withFailureHandler(function(error) {
+          showAlert('エラーが発生しました。システム管理者に問い合わせてください。');
+        })
+        .getScriptUrl();
+      }
+    </script>
+  </body>
+</html>

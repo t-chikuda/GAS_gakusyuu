@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <?!= HtmlService.createHtmlOutputFromFile('style').getContent(); ?>
+    <? const name = getName(); ?>
+    <h1>タスク編集画面</h1>
+    <div class="kakomi2"> 
+      <font size="1"><h1><?= name ?>さん</h1></font>
+    </div> 
+    <div class="kakomi1">
+      <input type="button" class="save" value="保存" onclick="save()">
+      <div id="taskList"></div>
+      <input type="button" class="back" value="戻る" onclick="back()">
+    </div> 
+    <script>
+      /**
+       * 初期表示処理の関数です
+       */
+      window.onload = function(){
+        google.script.run
+        .withSuccessHandler(function(results) {
+          let data = results;
+          let result = '';
+          for (let i = 1; i < results.length; i++ ){
+            if(Number(results[i][4]) === 1){
+              result = results[i];
+              break;
+            }
+          }
+
+          let date = new Date(result[2]);
+          date.setDate(date.getDate());
+          const yyyy = date.getFullYear();
+          const mm = ('0' + (date.getMonth()+1)).slice(-2);
+          const dd = ('0' + date.getDate()).slice(-2);
+          const convertDate = yyyy+'-'+mm+'-'+dd;
+
+          let html = '';
+          html += '<table class="taskList2" border="1">'
+          html += '  <tr>'
+          html += '    <th class="taskListLabel">No.</th>'
+          html += '    <td>' + result[0] + '</td>'
+          html += '  </tr>'
+          html += '  <tr>'
+          html += '    <th class="taskListLabel">内容</th>'
+          html += '    <td><input type="text" id="content" value="' + result[1] + '"></td>'
+          html += '  </tr>'
+          html += '  <tr>'
+          html += '    <th class="taskListLabel">期限</th>'
+          html += '    <td><input type="date" id="date" value="' + convertDate + '"></td>'
+          html += '  </tr>'
+          html += '</table>'
+          let taskList = document.getElementById('taskList');
+          taskList.innerHTML = html;
+        })
+        .withFailureHandler(function(error) {
+          showAlert('エラーが発生しました。システム管理者に問い合わせてください。');
+        })
+        .getTaskList();
+      }
+      /**
+       * 保存処理の関数です
+       */
+      function save() {
+        const content = document.getElementById('content').value;
+        const date = document.getElementById('date').value;
+        google.script.run
+        .withSuccessHandler(function(results) {
+          let url = results;
+          url += '?page=taskList';
+          window.top.location.href = url;
+        })
+        .withFailureHandler(function(error) {
+          showAlert('エラーが発生しました。システム管理者に問い合わせてください。');
+        })
+        .taskListSave(content, date);
+      }
+
+      /**
+       * 戻る処理の関数です
+       */
+      function back() {
+        google.script.run
+        .withSuccessHandler(function(results) {
+          let url = results;
+          url += '?page=taskList';
+          window.top.location.href = url;
+        })
+        .withFailureHandler(function(error) {
+          showAlert('エラーが発生しました。システム管理者に問い合わせてください。');
+        })
+        .getScriptUrl();
+      }
+    </script>
+  </body>
+</html>
